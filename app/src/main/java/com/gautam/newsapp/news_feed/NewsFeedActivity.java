@@ -16,7 +16,7 @@ import com.gautam.newsapp.data.remote.SyncJobService;
 
 import java.util.List;
 
-public class NewsFeedActivity extends AppCompatActivity implements GetNewsTask.OnNewsTaskListener {
+public class NewsFeedActivity extends AppCompatActivity {
 
 
     @Override
@@ -35,13 +35,6 @@ public class NewsFeedActivity extends AppCompatActivity implements GetNewsTask.O
             jobScheduler.schedule(job);
         }
 
-        new GetNewsTask(this).execute("https://newsapi.org/v2/everything?q=bitcoin&from=2020-01-12&sortBy=publishedAt&apiKey=686cc10b0378462b9f6fe6273bed4595");
-
-
     }
 
-    @Override
-    public void fetchedArticleList(List<Article> articles) {
-
-    }
 }

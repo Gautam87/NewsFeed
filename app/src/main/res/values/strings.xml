@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">NewsApp</string>
+    <string name="error_network_unavailable">Network Unavailable</string>
+    <string name="error_storage_permissions_denied">Enable storage permissions to store offline.</string>
+    <string name="error_no_articles_in_db">No articles found locally.</string>
+    <string name="error_no_articles">No articles found</string>
+    <string name="error_incorrect_response_code">Something went wrong. Please try again</string>
+    <string name="error_something_went_wrong">Something went wrong</string>
+    <string name="articles_list_api">Article List from API</string>
+    <string name="articles_list_db">Article List from DB</string>
+    <string name="action_refresh">Refresh</string>
 </resources>

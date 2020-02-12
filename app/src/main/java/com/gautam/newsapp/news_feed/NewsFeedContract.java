@@ -18,13 +18,15 @@ public class NewsFeedContract {
 
         void showInfoView();
 
+        void setInfoViewMessage(int message);
+
         void setInfoViewMessage(String message);
 
         void hideInfoView();
 
-        void setTitle(String title);
+        void setDbTitle();
 
-        void showSnackBar(String message);
+        void setApiTitle();
 
         void tryAgainClicked();
 
@@ -39,19 +41,15 @@ public class NewsFeedContract {
 
         void handleArticleListFromDb(List<Article> userItems);
 
-        void fetchUserListFromApi();
+        void fetchArticleListFromApi();
 
-        void handleArticleListResponse(NewsFeedResponse newsFeedResponse);
-
-        boolean validateID(Article articleItem);
+        void handleArticleListFromApi(List<Article> userItems);
 
         boolean checkNetwork();
 
         void handleNetworkAvailable();
 
         void handleNetworkNotAvailable();
-
-        boolean isResponseValid(NewsFeedResponse newsFeedResponse);
 
         void handleTryAgainClicked();
 
