@@ -16,9 +16,18 @@ import java.util.List;
 /**
  * Async task class to get json by making HTTP call
  */
-public class GetNewsTask extends AsyncTask<String, Integer, Boolean> {
+public class GetNewsTask extends AsyncTask<String, Integer, List<Article>> {
 
     private static final String TAG = "GetNewsTask";
+
+    private OnNewsTaskListener mListener;
+
+    public GetNewsTask(OnNewsTaskListener mListener) {
+        this.mListener = mListener;
+    }
+
+    public GetNewsTask() {
+    }
 
     @Override
     protected void onPreExecute() {
@@ -28,13 +37,13 @@ public class GetNewsTask extends AsyncTask<String, Integer, Boolean> {
     }
 
     @Override
-    protected Boolean doInBackground(String... params) {
+    protected List<Article> doInBackground(String... params) {
         HttpHandler sh = new HttpHandler();
         ArrayList<Article> articles = null;
         // Making a request to url and getting response
         String jsonStr = sh.makeServiceCall(params[0]);
 
-        Log.e(TAG, "Response from url: " + jsonStr);
+        Log.i(TAG, "Response from url: " + jsonStr);
 
         if (jsonStr != null) {
             try {
@@ -73,39 +82,26 @@ public class GetNewsTask extends AsyncTask<String, Integer, Boolean> {
                 }
             } catch (final JSONException e) {
                 Log.e(TAG, "Json parsing error: " + e.getMessage());
-//                runOnUiThread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        Toast.makeText(getApplicationContext(),
-//                                "Json parsing error: " + e.getMessage(),
-//                                Toast.LENGTH_LONG)
-//                                .show();
-//                    }
-//                });
-
             }
         } else {
             Log.e(TAG, "Couldn't get json from server.");
-//            runOnUiThread(new Runnable() {
-//                @Override
-//                public void run() {
-//                    Toast.makeText(getApplicationContext(),
-//                            "Couldn't get json from server. Check LogCat for possible errors!",
-//                            Toast.LENGTH_LONG)
-//                            .show();
-//                }
-//            });
 
         }
 
-        return articles==null?false:true;
+        return articles;
     }
 
     @Override
-    protected void onPostExecute(Boolean result) {
-        super.onPostExecute(result);
+    protected void onPostExecute(List<Article> articles) {
+        super.onPostExecute(articles);
+        if (mListener != null) {
+            mListener.fetchedArticleList(articles);
+        }
         // Dismiss the loading
         //Todo display in ui
     }
 
+    public interface OnNewsTaskListener {
+        void fetchedArticleList(List<Article> articles);
+    }
 }
