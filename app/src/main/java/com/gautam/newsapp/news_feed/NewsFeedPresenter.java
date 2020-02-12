@@ -56,7 +56,7 @@ public class NewsFeedPresenter extends BasePresenter<NewsFeedContract.View> impl
         getMvpView().hideLoader();
         getMvpView().hideInfoView();
         getMvpView().showArticleList(articles);
-        getMvpView().setDbTitle();
+        getMvpView().setTitle(R.string.articles_list_db);
 
     }
 
@@ -82,7 +82,7 @@ public class NewsFeedPresenter extends BasePresenter<NewsFeedContract.View> impl
             getMvpView().showArticleList(articles);
             getMvpView().hideLoader();
             getMvpView().hideInfoView();
-            getMvpView().setApiTitle();
+            getMvpView().setTitle(R.string.articles_list_api);
 
 //            HashMap<Integer, Article> userItemHashMap = new HashMap<>();
 //            if (getUserListResponsePojo.getData() != null) {
@@ -160,7 +160,7 @@ public class NewsFeedPresenter extends BasePresenter<NewsFeedContract.View> impl
     }
 
     @Override
-    public void bookmarkClicked(int idLocal, int position) {
+    public void bookmarkClicked(String title, int position) {
 //        UserItem userItem = SQLite.select().
 //                from(UserItem.class).
 //                where(UserItem_Table.idLocal.is(idLocal)).

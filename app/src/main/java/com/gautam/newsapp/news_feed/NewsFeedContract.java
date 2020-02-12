@@ -18,15 +18,13 @@ public class NewsFeedContract {
 
         void showInfoView();
 
-        void setInfoViewMessage(int message);
+        void setInfoViewMessage(int resId);
 
         void setInfoViewMessage(String message);
 
         void hideInfoView();
 
-        void setDbTitle();
-
-        void setApiTitle();
+        void setTitle(int resId);
 
         void tryAgainClicked();
 
@@ -55,6 +53,6 @@ public class NewsFeedContract {
 
         void handleError();
 
-        void bookmarkClicked(int idLocal, int position);
+        void bookmarkClicked(String title, int position);
     }
 }
