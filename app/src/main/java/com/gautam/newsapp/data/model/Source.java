@@ -9,6 +9,11 @@ public class Source {
     private String name;
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
+    public Source(Object id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
     public Object getId() {
         return id;
     }
