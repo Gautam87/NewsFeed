@@ -1,6 +1,7 @@
 package com.gautam.newsapp.news_feed;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.job.JobInfo;
 import android.app.job.JobScheduler;
@@ -16,6 +17,7 @@ import com.gautam.newsapp.data.remote.SyncJobService;
 import java.util.List;
 
 public class NewsFeedActivity extends AppCompatActivity implements GetNewsTask.OnNewsTaskListener {
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

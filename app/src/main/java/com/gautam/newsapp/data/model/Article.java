@@ -13,9 +13,10 @@ public class Article {
     private String urlToImage;
     private String publishedAt;
     private String content;
+    private Boolean isBookmarked;
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
-    public Article(Source source, String author, String title, String description, String url, String urlToImage, String publishedAt, String content) {
+    public Article(Source source, String author, String title, String description, String url, String urlToImage, String publishedAt, String content, Boolean isBookmarked) {
         this.source = source;
         this.author = author;
         this.title = title;
@@ -24,6 +25,7 @@ public class Article {
         this.urlToImage = urlToImage;
         this.publishedAt = publishedAt;
         this.content = content;
+        this.isBookmarked = isBookmarked;
     }
 
     public Source getSource() {
@@ -88,6 +90,14 @@ public class Article {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public Boolean isBookmarked() {
+        return isBookmarked;
+    }
+
+    public void setBookmarked(Boolean bookmarked) {
+        isBookmarked = bookmarked;
     }
 
     public Map<String, Object> getAdditionalProperties() {

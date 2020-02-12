@@ -74,7 +74,7 @@ public class GetNewsTask extends AsyncTask<String, Integer, List<Article>> {
                         String name = obj.getString("name");
                         Source source = new Source(id, name);
 
-                        Article article = new Article(source, author, title, description, url, urlToImage, publishedAt, content);
+                        Article article = new Article(source, author, title, description, url, urlToImage, publishedAt, content, false);
 
                         // adding articles to articles list
                         articles.add(article);
