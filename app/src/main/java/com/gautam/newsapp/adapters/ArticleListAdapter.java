@@ -87,6 +87,15 @@ public class ArticleListAdapter extends RecyclerView.Adapter<ArticleListAdapter.
                 }
             }
         });
+        holder.ivShare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(mListener!=null){
+                    mListener.onShareClicked(mList.get(position).getUrl(),
+                            mList.get(position).getTitle());
+                }
+            }
+        });
 
 //        holder.relativeUserProfile.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -121,6 +130,8 @@ public class ArticleListAdapter extends RecyclerView.Adapter<ArticleListAdapter.
 
     public interface OnItemInteractionListener {
         void onBookmarkClicked(String title, int position);
+
+        void onShareClicked(String url, String title);
 //
 //        void onDeleteClicked(int position);
     }

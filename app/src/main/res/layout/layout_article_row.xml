@@ -37,13 +37,12 @@
                 android:textSize="18sp"
                 tools:text="Test Name" />
 
-            <view
+            <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginTop="4dp"
                 android:layout_marginBottom="4dp"
-                android:alpha=".5"
-                android:background="@android:color/darker_gray" />
+                android:background="#ADADAD" />
 
             <TextView
                 android:id="@+id/text_subtitle"
@@ -78,7 +77,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="top"
                 android:padding="8dp"
-                app:srcCompat="@drawable/ic_bookmark_border_24dp" />
+                app:srcCompat="@drawable/ic_share_24dp" />
 
             <ImageView
                 android:id="@+id/image_bookmark"

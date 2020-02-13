@@ -3,6 +3,7 @@ package com.gautam.newsapp.news_feed;
 import com.gautam.newsapp.R;
 import com.gautam.newsapp.base.BasePresenter;
 import com.gautam.newsapp.data.model.Article;
+import com.gautam.newsapp.data.remote.ApiConstants;
 import com.gautam.newsapp.data.remote.GetNewsTask;
 
 import java.io.IOException;
@@ -66,7 +67,7 @@ public class NewsFeedPresenter extends BasePresenter<NewsFeedContract.View> impl
             getMvpView().showLoader();
             getMvpView().showInfoView();
 
-            new GetNewsTask(this).execute("https://newsapi.org/v2/everything?q=bitcoin&from=2020-01-12&sortBy=publishedAt&apiKey=686cc10b0378462b9f6fe6273bed4595");
+            new GetNewsTask(this).execute(ApiConstants.BASE_URL+"everything?q=bitcoin&from=2020-01-13&sortBy=publishedAt&apiKey="+ApiConstants.API_KEY);
 
 
         } else {

@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
+import androidx.core.app.ShareCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -23,13 +24,13 @@ import java.util.List;
 
 public class NewsFeedFragment extends Fragment implements NewsFeedContract.View, ArticleListAdapter.OnItemInteractionListener {
 
-    private TextView mInfoView;
-    private RecyclerView mRecyclerView;
-
     private static final String TAG = "NewsFeedFragment";
     private NewsFeedPresenter mNewsFeedPresenter;
     private ArticleListAdapter mArticleListAdapter;
 
+    private TextView mInfoView;
+    private RecyclerView mRecyclerView;
+    private View mProgressBar;
 
     public static NewsFeedFragment newInstance() {
         return new NewsFeedFragment();
@@ -54,6 +55,7 @@ public class NewsFeedFragment extends Fragment implements NewsFeedContract.View,
         View view = inflater.inflate(R.layout.fragment_news_feed, container, false);
         mRecyclerView = view.findViewById(R.id.recycler_view);
         mInfoView = view.findViewById(R.id.info_view);
+        mProgressBar = view.findViewById(R.id.progress_bar);
         mNewsFeedPresenter.attachView(this);
         mRecyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
@@ -82,12 +84,13 @@ public class NewsFeedFragment extends Fragment implements NewsFeedContract.View,
 
     @Override
     public void showLoader() {
-        //Todo show progress indicator
+        mProgressBar.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void hideLoader() {
-        //Todo hide progress indicator
+        mProgressBar.setVisibility(View.INVISIBLE);
+
     }
 
     @Override
@@ -163,6 +166,17 @@ public class NewsFeedFragment extends Fragment implements NewsFeedContract.View,
     @Override
     public void onBookmarkClicked(String title, int position) {
         mNewsFeedPresenter.bookmarkClicked(title,position);
+    }
+
+    @Override
+    public void onShareClicked(String url, String title) {
+        if(getActivity()!=null) {
+            ShareCompat.IntentBuilder.from(getActivity())
+                    .setType("text/plain")
+                    .setChooserTitle("Share: "+title)
+                    .setText(url)
+                    .startChooser();
+        }
     }
 }
 
