@@ -67,7 +67,7 @@ public class NewsFeedPresenter extends BasePresenter<NewsFeedContract.View> impl
             getMvpView().showLoader();
             getMvpView().showInfoView();
 
-            new GetNewsTask(this).execute(ApiConstants.BASE_URL+"everything?q=bitcoin&from=2020-01-13&sortBy=publishedAt&apiKey="+ApiConstants.API_KEY);
+            new GetNewsTask(this).execute(ApiConstants.BASE_URL + "everything?q=bitcoin&from=2020-01-13&sortBy=publishedAt&apiKey=" + ApiConstants.API_KEY);
 
 
         } else {
@@ -80,10 +80,17 @@ public class NewsFeedPresenter extends BasePresenter<NewsFeedContract.View> impl
     @Override
     public void handleArticleListFromApi(List<Article> articles) {
         if (articles != null) {
-            getMvpView().showArticleList(articles);
-            getMvpView().hideLoader();
-            getMvpView().hideInfoView();
-            getMvpView().setTitle(R.string.articles_list_api);
+
+            if (articles.size() > 0) {
+                getMvpView().showArticleList(articles);
+                getMvpView().hideLoader();
+                getMvpView().hideInfoView();
+                getMvpView().setTitle(R.string.articles_list_api);
+            } else {
+                getMvpView().hideLoader();
+                getMvpView().setInfoViewMessage(R.string.error_no_articles);
+                getMvpView().showInfoView();
+            }
 
 //            HashMap<Integer, Article> userItemHashMap = new HashMap<>();
 //            if (getUserListResponsePojo.getData() != null) {

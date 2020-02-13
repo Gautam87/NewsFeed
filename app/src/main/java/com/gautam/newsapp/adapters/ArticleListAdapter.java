@@ -72,6 +72,7 @@ public class ArticleListAdapter extends RecyclerView.Adapter<ArticleListAdapter.
 
         holder.tvTitle.setText(mList.get(position).getTitle().trim());
         holder.tvSubtitle.setText(mList.get(position).getDescription().trim());
+        holder.tvUrl.setText(mList.get(position).getUrl().trim());
         if(mList.get(position).isBookmarked()!=null) {
             holder.ivBookmark.setImageResource(mList.get(position).isBookmarked() ?
                     R.drawable.ic_bookmark_24dp : R.drawable.ic_bookmark_border_24dp);
