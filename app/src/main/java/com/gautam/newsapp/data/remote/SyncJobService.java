@@ -14,7 +14,7 @@ public class SyncJobService extends JobService {
     public boolean onStartJob(JobParameters jobParameters) {
         this.params = jobParameters;
 //        Toast.makeText(this, "Job Starts", Toast.LENGTH_SHORT).show();
-        getNewsTask = new GetNewsTask();
+        getNewsTask = new GetNewsTask(this,null);
         getNewsTask.execute(ApiConstants.BASE_URL+"everything?q=bitcoin&from=2020-01-13&sortBy=publishedAt&apiKey="+ApiConstants.API_KEY);
         return true;
     }

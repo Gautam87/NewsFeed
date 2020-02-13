@@ -16,6 +16,9 @@ public class Article {
     private Boolean isBookmarked;
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
+    public Article() {
+    }
+
     public Article(Source source, String author, String title, String description, String url, String urlToImage, String publishedAt, String content, Boolean isBookmarked) {
         this.source = source;
         this.author = author;

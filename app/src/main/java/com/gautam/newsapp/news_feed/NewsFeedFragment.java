@@ -1,5 +1,7 @@
 package com.gautam.newsapp.news_feed;
 
+import android.content.Context;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -109,6 +111,7 @@ public class NewsFeedFragment extends Fragment implements NewsFeedContract.View,
     public void setInfoViewMessage(String message) {
         mInfoView.setText(message);
     }
+
     @Override
     public void setInfoViewMessage(int resId) {
         mInfoView.setText(resId);
@@ -121,7 +124,7 @@ public class NewsFeedFragment extends Fragment implements NewsFeedContract.View,
 
     @Override
     public void setTitle(int resId) {
-        if (getActivity() != null ) {
+        if (getActivity() != null) {
             getActivity().setTitle(resId);
         }
     }
@@ -141,7 +144,7 @@ public class NewsFeedFragment extends Fragment implements NewsFeedContract.View,
 
     @Override
     public void notifyRecyclerDataChange(int position, Boolean bookmarked) {
-        if(mArticleListAdapter !=null) {
+        if (mArticleListAdapter != null) {
             mArticleListAdapter.setBookmark(position, bookmarked);
         }
     }
@@ -164,16 +167,16 @@ public class NewsFeedFragment extends Fragment implements NewsFeedContract.View,
     }
 
     @Override
-    public void onBookmarkClicked(String title, int position) {
-        mNewsFeedPresenter.bookmarkClicked(title,position);
+    public void onBookmarkClicked(String url, int position) {
+        mNewsFeedPresenter.bookmarkClicked(url, position);
     }
 
     @Override
     public void onShareClicked(String url, String title) {
-        if(getActivity()!=null) {
+        if (getActivity() != null) {
             ShareCompat.IntentBuilder.from(getActivity())
                     .setType("text/plain")
-                    .setChooserTitle("Share: "+title)
+                    .setChooserTitle("Share: " + title)
                     .setText(url)
                     .startChooser();
         }

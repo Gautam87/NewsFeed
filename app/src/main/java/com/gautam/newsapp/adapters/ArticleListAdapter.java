@@ -73,25 +73,25 @@ public class ArticleListAdapter extends RecyclerView.Adapter<ArticleListAdapter.
         holder.tvTitle.setText(mList.get(position).getTitle().trim());
         holder.tvSubtitle.setText(mList.get(position).getDescription().trim());
         holder.tvUrl.setText(mList.get(position).getUrl().trim());
-        if(mList.get(position).isBookmarked()!=null) {
+        if (mList.get(position).isBookmarked() != null) {
             holder.ivBookmark.setImageResource(mList.get(position).isBookmarked() ?
                     R.drawable.ic_bookmark_24dp : R.drawable.ic_bookmark_border_24dp);
-        }else {
+        } else {
             holder.ivBookmark.setImageResource(R.drawable.ic_bookmark_border_24dp);
         }
 
         holder.ivBookmark.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(mListener!=null){
-                    mListener.onBookmarkClicked(mList.get(position).getTitle(),position);
+                if (mListener != null) {
+                    mListener.onBookmarkClicked(mList.get(position).getUrl(), position);
                 }
             }
         });
         holder.ivShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(mListener!=null){
+                if (mListener != null) {
                     mListener.onShareClicked(mList.get(position).getUrl(),
                             mList.get(position).getTitle());
                 }
@@ -130,7 +130,7 @@ public class ArticleListAdapter extends RecyclerView.Adapter<ArticleListAdapter.
     }
 
     public interface OnItemInteractionListener {
-        void onBookmarkClicked(String title, int position);
+        void onBookmarkClicked(String url, int position);
 
         void onShareClicked(String url, String title);
 //

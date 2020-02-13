@@ -2,13 +2,13 @@ package com.gautam.newsapp.news_feed;
 
 import com.gautam.newsapp.R;
 import com.gautam.newsapp.base.BasePresenter;
+import com.gautam.newsapp.data.database.DBManager;
 import com.gautam.newsapp.data.model.Article;
 import com.gautam.newsapp.data.remote.ApiConstants;
 import com.gautam.newsapp.data.remote.GetNewsTask;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class NewsFeedPresenter extends BasePresenter<NewsFeedContract.View> implements NewsFeedContract.Presenter, GetNewsTask.OnNewsTaskListener {
@@ -67,7 +67,7 @@ public class NewsFeedPresenter extends BasePresenter<NewsFeedContract.View> impl
             getMvpView().showLoader();
             getMvpView().showInfoView();
 
-            new GetNewsTask(this).execute(ApiConstants.BASE_URL + "everything?q=bitcoin&from=2020-01-13&sortBy=publishedAt&apiKey=" + ApiConstants.API_KEY);
+            new GetNewsTask(getMvpView().getContext(),this).execute(ApiConstants.BASE_URL + "everything?q=bitcoin&from=2020-01-13&sortBy=publishedAt&apiKey=" + ApiConstants.API_KEY);
 
 
         } else {
@@ -168,7 +168,12 @@ public class NewsFeedPresenter extends BasePresenter<NewsFeedContract.View> impl
     }
 
     @Override
-    public void bookmarkClicked(String title, int position) {
+    public void bookmarkClicked(String url, int position) {
+        DBManager dbManager = new DBManager(getMvpView().getContext());
+        dbManager.open();
+        boolean isBookmarked= dbManager.isArticleBookmarked(url);
+        dbManager.updateBookmark(url,!isBookmarked);
+        dbManager.close();
 //        UserItem userItem = SQLite.select().
 //                from(UserItem.class).
 //                where(UserItem_Table.idLocal.is(idLocal)).
@@ -181,11 +186,14 @@ public class NewsFeedPresenter extends BasePresenter<NewsFeedContract.View> impl
 //            }
 //            userItem.save();
 //        }
-//        getMvpView().notifyRecyclerDataChange(position, userItem.isBookmarked());
+        getMvpView().notifyRecyclerDataChange(position, !isBookmarked);
     }
 
     @Override
     public void fetchedArticleList(List<Article> articles) {
-        handleArticleListFromApi(articles);
+        DBManager dbManager = new DBManager(getMvpView().getContext());
+        dbManager.open();
+        handleArticleListFromApi(dbManager.fetch());
+        dbManager.close();
     }
 }

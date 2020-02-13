@@ -11,7 +11,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String TABLE_NAME = "ARTICLES";
 
     // Table columns
-    public static final String _ID = "_id";
     public static final String TITLE = "title";
     public static final String DESC = "description";
     public static final String URL = "url";
@@ -31,9 +30,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private Context mContext;
 
     // Creating table query
-    private static final String CREATE_TABLE = "create table " + TABLE_NAME + "(" + _ID
-            + " INTEGER PRIMARY KEY AUTOINCREMENT, " + TITLE + " TEXT NOT NULL, "+ DESC + " TEXT, "
-            + URL + " TEXT, "
+    private static final String CREATE_TABLE = "create table " + TABLE_NAME + "(" + URL
+            + " TEXT PRIMARY KEY NOT NULL, " + TITLE + " TEXT NOT NULL, "+ DESC + " TEXT, "
             + URL_TO_IMAGE + " TEXT, "
             + PUBLISHED_AT + " TEXT, "
             + CONTENT + " TEXT, "

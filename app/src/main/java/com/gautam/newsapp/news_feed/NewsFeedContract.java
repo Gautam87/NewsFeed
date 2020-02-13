@@ -1,10 +1,14 @@
 package com.gautam.newsapp.news_feed;
 
+import android.content.Context;
+import android.os.AsyncTask;
+
 import com.gautam.newsapp.base.MvpView;
 import com.gautam.newsapp.data.model.Article;
 import com.gautam.newsapp.data.model.NewsFeedResponse;
 
 import java.util.List;
+import java.util.concurrent.Executor;
 
 public class NewsFeedContract {
 
@@ -29,6 +33,8 @@ public class NewsFeedContract {
         void tryAgainClicked();
 
         void notifyRecyclerDataChange(int idLocal, Boolean bookmarked);
+
+        Context getContext();
     }
 
     interface Presenter {

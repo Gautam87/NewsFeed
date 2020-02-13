@@ -1,8 +1,10 @@
 package com.gautam.newsapp.data.remote;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.gautam.newsapp.data.database.DBManager;
 import com.gautam.newsapp.data.model.Article;
 import com.gautam.newsapp.data.model.Source;
 
@@ -10,6 +12,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,10 +22,13 @@ import java.util.List;
 public class GetNewsTask extends AsyncTask<String, Integer, List<Article>> {
 
     private static final String TAG = "GetNewsTask";
+    private WeakReference<Context> contextWeakReference;
 
     private OnNewsTaskListener mListener;
+    private DBManager mDBManager;
 
-    public GetNewsTask(OnNewsTaskListener mListener) {
+    public GetNewsTask(Context context, OnNewsTaskListener mListener) {
+        this.contextWeakReference = new WeakReference<>(context);
         this.mListener = mListener;
     }
 
@@ -87,6 +93,14 @@ public class GetNewsTask extends AsyncTask<String, Integer, List<Article>> {
             Log.e(TAG, "Couldn't get json from server.");
 
         }
+        if (articles != null && articles.size() > 0) {
+            mDBManager = new DBManager(contextWeakReference.get());
+            mDBManager.open();
+            for(Article article : articles){
+                mDBManager.insert(article);
+            }
+            mDBManager.close();
+        }
 
         return articles;
     }
@@ -97,8 +111,6 @@ public class GetNewsTask extends AsyncTask<String, Integer, List<Article>> {
         if (mListener != null) {
             mListener.fetchedArticleList(articles);
         }
-        // Dismiss the loading
-        //Todo display in ui
     }
 
     public interface OnNewsTaskListener {
