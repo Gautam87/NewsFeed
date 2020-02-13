@@ -35,10 +35,10 @@ public class NewsFeedPresenter extends BasePresenter<NewsFeedContract.View> impl
     @Override
     public void checkUserListInDb() {
         getMvpView().showLoader();
-        List<Article> articles = new ArrayList<>();
-//        List<Article> articles = SQLite.select().
-//                from(UserItem.class).queryList();
-        //Todo load from db
+        DBManager dbManager = new DBManager(getMvpView().getContext());
+        dbManager.open();
+        List<Article> articles = dbManager.fetch();
+        dbManager.close();
         if (articles.size() > 0) {
             handleArticleListFromDb(articles);
         } else {
@@ -91,35 +91,6 @@ public class NewsFeedPresenter extends BasePresenter<NewsFeedContract.View> impl
                 getMvpView().setInfoViewMessage(R.string.error_no_articles);
                 getMvpView().showInfoView();
             }
-
-//            HashMap<Integer, Article> userItemHashMap = new HashMap<>();
-//            if (getUserListResponsePojo.getData() != null) {
-//                for (UserItem item : getUserListResponsePojo.getData()) {
-//                    if (validateID(item) && userItemHashMap.get(item.getId()) == null) {
-//                        userItemHashMap.put(item.getId(), item);
-//                    }
-//                }
-//                if (userItemHashMap.size() > 0) {
-//                    List<UserItem> userItems = new ArrayList<>(userItemHashMap.values());
-//                    getMvpView().showUserList(userItems);
-//                    try {
-//                        //clear previously stored data
-//                        Delete.table(UserItem.class);
-//                        //save in bulk
-//                        FlowManager.getModelAdapter(UserItem.class).saveAll(userItems);
-//                    } catch (Exception e) {
-//                        //Exception in unit testing
-//                    }
-//                    getMvpView().hideLoader();
-//                    getMvpView().hideInfoView();
-//                    getMvpView().setApiTitle();
-//
-//                } else {
-//                    getMvpView().hideLoader();
-//                    getMvpView().setInfoViewMessage(R.string.error_no_articles);
-//                    getMvpView().showInfoView();
-//                }
-//            }
         } else {
             getMvpView().hideLoader();
             getMvpView().setInfoViewMessage(R.string.error_incorrect_response_code);
@@ -174,18 +145,6 @@ public class NewsFeedPresenter extends BasePresenter<NewsFeedContract.View> impl
         boolean isBookmarked= dbManager.isArticleBookmarked(url);
         dbManager.updateBookmark(url,!isBookmarked);
         dbManager.close();
-//        UserItem userItem = SQLite.select().
-//                from(UserItem.class).
-//                where(UserItem_Table.idLocal.is(idLocal)).
-//                querySingle();
-//        if (userItem != null) {
-//            if (userItem.isBookmarked() == null || !userItem.isBookmarked()) {
-//                userItem.setBookmarked(true);
-//            } else {
-//                userItem.setBookmarked(false);
-//            }
-//            userItem.save();
-//        }
         getMvpView().notifyRecyclerDataChange(position, !isBookmarked);
     }
 

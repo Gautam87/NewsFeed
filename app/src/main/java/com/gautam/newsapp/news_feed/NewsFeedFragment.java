@@ -1,7 +1,5 @@
 package com.gautam.newsapp.news_feed;
 
-import android.content.Context;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
